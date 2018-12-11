@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:replace="fragments/header :: header-css"/>
+    <div th:replace="fragments/header :: header-css"></div>
 </head>
 <body>
 
-<div th:replace="fragments/header :: header"/>
+<div th:replace="fragments/header :: header"></div>
 
 <div class="container">
 
@@ -13,6 +13,20 @@
         <h1>Admin page (Spring Security protected)</h1>
 
         <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+
+        <div th:if="${not #lists.isEmpty(users)}" class="page-header">
+            <h2>Users:</h2>
+        </div>
+
+        <div th:each="user : ${users}" class="panel panel-info">
+            <div class="panel-heading">
+                <h3 th:text="${user.id}" class="panel-title">id</h3>
+            </div>
+            <div class="panel-body">
+                <p th:text="${user.email}">email</p>
+            </div>
+        </div>
+
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Sign Out"/>
         </form>
@@ -20,9 +34,7 @@
     </div>
 
 </div>
-<!-- /.container -->
 
-<div th:replace="fragments/footer :: footer"/>
-
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
