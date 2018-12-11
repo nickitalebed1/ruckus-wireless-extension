@@ -89,3 +89,4 @@ fabric.properties
 /spring-boot-web-spring-security.iml
 /.idea/
 /ruckus-wireless-extension.iml
+/creds.txt
