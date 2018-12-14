@@ -14,7 +14,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_details")
-@Data
 @NoArgsConstructor
 public class UserDetails {
 
@@ -36,7 +35,7 @@ public class UserDetails {
     private boolean blocked;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+//    @JoinColumn(name = "user_id")
     private User user;
 
 }

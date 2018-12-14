@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/main">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <section class="billboard">
+        <div class="container">
+            <h2>Ruckus SmartZone extension</h2>
+        </div>
+    </section>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Rate Us!</h1>
+            <p><a class="btn btn-primary btn-lg" th:href="@{/submit}" role="button">Click</a></p>
+        </div>
+    </div>
+    <div class="container">
+
+    </div>
+</div>
+</body>
+</html>
