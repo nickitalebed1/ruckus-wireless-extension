@@ -1,6 +1,5 @@
 package ua.nure.nlebed.model;
 
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -8,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -35,7 +33,6 @@ public class UserDetails {
     private boolean blocked;
 
     @ManyToOne
-//    @JoinColumn(name = "user_id")
     private User user;
 
 }
