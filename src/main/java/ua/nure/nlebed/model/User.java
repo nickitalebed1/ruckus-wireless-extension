@@ -45,6 +45,16 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
     private Set<UserDetails> userDetails;
+
+    public User(String email, String password, String name, String lastName, Set<Role> roles, Set<UserDetails> userDetails) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.lastName = lastName;
+        this.roles = roles;
+        this.userDetails = userDetails;
+    }
 }

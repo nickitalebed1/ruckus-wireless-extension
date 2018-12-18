@@ -1,5 +1,6 @@
 package ua.nure.nlebed.model;
 
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -7,12 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_details")
 @NoArgsConstructor
+@Data
 public class UserDetails {
 
     @Id
@@ -32,7 +33,10 @@ public class UserDetails {
     @Column(name = "blocked")
     private boolean blocked;
 
-    @ManyToOne
-    private User user;
-
+    public UserDetails(String macAddress, String ipAddress, String device, boolean blocked) {
+        this.macAddress = macAddress;
+        this.ipAddress = ipAddress;
+        this.device = device;
+        this.blocked = blocked;
+    }
 }

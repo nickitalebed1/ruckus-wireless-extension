@@ -21,8 +21,7 @@ public class UserRestController {
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public void putUser(@RequestBody UserDTO user) {
-        System.out.println(user);
-//        userService.saveUser(user);
+        userService.saveUser(user);
     }
 
 }
