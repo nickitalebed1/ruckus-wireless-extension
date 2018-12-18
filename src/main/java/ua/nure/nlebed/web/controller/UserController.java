@@ -8,8 +8,6 @@ import ua.nure.nlebed.service.UserService;
 import ua.nure.nlebed.web.Navigation;
 import ua.nure.nlebed.web.Section;
 
-import java.security.Principal;
-
 @Controller
 @Navigation(Section.ADMIN)
 public class UserController {
@@ -23,13 +21,7 @@ public class UserController {
 
     @GetMapping("/admin")
     public String admin(Model model) {
-        model.addAttribute("users", userService.findAll());
-        return "user/index";
-    }
-
-    @GetMapping("/userInfo")
-    public String userInfo(Model model, Principal principal) {
-        System.err.println(principal.getName());
+        model.addAttribute("users", userService.findAllClients());
         return "user/index";
     }
 }

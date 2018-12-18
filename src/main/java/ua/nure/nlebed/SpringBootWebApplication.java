@@ -31,7 +31,6 @@ public class SpringBootWebApplication implements CommandLineRunner {
     public void run(String... strings) {
         User user = new User();
         Set<Role> roles = new HashSet<>();
-        roles.add(new Role(SupportedRoles.ROLE_CLIENT));
         roles.add(new Role(SupportedRoles.ROLE_ADMIN));
         user.setEmail("admin@nure.ua");
         user.setLastName("admin");
