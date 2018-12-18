@@ -131,3 +131,7 @@ nav.navbar {
     color: white;
     text-align: center;
 }
+p.error {
+    font-weight: bold;
+    color: red;
+}

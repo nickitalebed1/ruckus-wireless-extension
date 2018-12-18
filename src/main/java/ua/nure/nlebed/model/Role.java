@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,10 +22,11 @@ public class Role {
     @Column(name = "role_id")
     private Integer id;
 
-    @Column(name = "role")
-    private String role;
+    @Column(name = "role", unique = true)
+    @Enumerated(EnumType.STRING)
+    private SupportedRoles role;
 
-    public Role(String role) {
+    public Role(SupportedRoles role) {
         this.role = role;
     }
 }
