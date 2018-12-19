@@ -1,5 +1,7 @@
 package ua.nure.nlebed.converter;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import ua.nure.nlebed.dto.UserDTO;
 import ua.nure.nlebed.model.Role;
@@ -16,6 +18,9 @@ public class UserDTOConverter {
     private static final Boolean NOT_BLOCKED = false;
     private static final String DEFAULT_PASSWORD = "password";
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     public User convert(UserDTO userDTO) {
         Set<Role> roles = new HashSet<>();
         roles.add(new Role(SupportedRoles.ROLE_CLIENT));
@@ -28,7 +33,7 @@ public class UserDTOConverter {
                 NOT_BLOCKED));
 
         return new User(userDTO.getEmail(),
-                DEFAULT_PASSWORD,
+                passwordEncoder.encode(DEFAULT_PASSWORD),
                 userDTO.getName(),
                 userDTO.getLastName(),
                 roles,
