@@ -32,10 +32,14 @@ public class UserDTOConverter {
                 userDTO.getDevice(),
                 NOT_BLOCKED));
 
+        String photoUrl = userDTO.getPhotoUrl() != null ? userDTO.getPhotoUrl() :
+                "https://www.timeshighereducation.com/sites/default/files/byline_photos/default-avatar.png";
+
         return new User(userDTO.getEmail(),
                 passwordEncoder.encode(DEFAULT_PASSWORD),
                 userDTO.getName(),
                 userDTO.getLastName(),
+                photoUrl,
                 roles,
                 userDetails);
     }

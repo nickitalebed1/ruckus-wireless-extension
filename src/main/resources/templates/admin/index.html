@@ -13,17 +13,17 @@
             <thead>
             <tr>
                 <th>user</th>
-                <th>macAddress</th>
-                <th>view</th>
+                <th>mac</th>
+                <th>details</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="user : ${users}">
                 <td th:text="${user.email}">email</td>
                 <div th:if="${user.userDetails.size() == 1}">
-                    <td th:text="${user.userDetails.iterator().next().macAddress}">macAddress</td>
+                    <td th:text="${user.userDetails.iterator().next().macAddress}">mac</td>
                 </div>
-                <td><a th:href="@{/userDetails/} + ${user.email}">View Details</a></td>
+                <td><a th:href="@{/userDetails/} + ${user.id}">View Details</a></td>
             </tr>
             </tbody>
         </table>

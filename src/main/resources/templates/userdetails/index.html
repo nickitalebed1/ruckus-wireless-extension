@@ -1,12 +1,33 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/main">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main">
 <head>
     <title>Home</title>
 </head>
 <body>
 <div layout:fragment="content">
-    <h1 th:text="${principal}"></h1>
     <div class="container">
-
+        <div class="page-header">
+            <h2 th:text="${user.email}"></h2>
+        </div>
+        <img th:src="@{${user.photoUrl}}" class="rounded float-left"/>
+        <table class="table table-striped float-left">
+            <thead>
+            <tr>
+                <th>mac</th>
+                <th>ip</th>
+                <th>device</th>
+                <th>blocked</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="userDetails : ${user.userDetails}">
+                <td th:text="${userDetails.macAddress}">mac</td>
+                <td th:text="${userDetails.ipAddress}">mac</td>
+                <td th:text="${userDetails.device}">mac</td>
+                <td th:text="${userDetails.blocked}">mac</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>

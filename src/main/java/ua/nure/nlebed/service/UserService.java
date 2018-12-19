@@ -10,7 +10,6 @@ import ua.nure.nlebed.model.SupportedRoles;
 import ua.nure.nlebed.model.User;
 import ua.nure.nlebed.repository.UserRepository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,9 +42,12 @@ public class UserService {
         }
     }
 
-    @Transactional
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public User findUserById(Integer id) {
+        return userRepository.findOne(id);
     }
 
 }

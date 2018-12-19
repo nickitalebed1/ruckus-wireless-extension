@@ -29,14 +29,15 @@ public class SpringBootWebApplication implements CommandLineRunner {
 
     @Override
     public void run(String... strings) {
-        User user = new User();
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role(SupportedRoles.ROLE_ADMIN));
-        user.setEmail("admin@nure.ua");
-        user.setLastName("admin");
-        user.setName("admin");
-        user.setPassword(passwordEncoder.encode("admin"));
-        user.setRoles(roles);
-        userRepository.saveAndFlush(user);
+//        User user = new User();
+//        Set<Role> roles = new HashSet<>();
+//        roles.add(new Role(SupportedRoles.ROLE_ADMIN));
+//        user.setEmail("admin@nure.ua");
+//        user.setLastName("admin");
+//        user.setName("admin");
+//        user.setPassword(passwordEncoder.encode("admin"));
+//        user.setRoles(roles);
+//        user.setPhotoUrl("https://www.timeshighereducation.com/sites/default/files/byline_photos/default-avatar.png");
+//        userRepository.saveAndFlush(user);
     }
 }

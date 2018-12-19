@@ -14,7 +14,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,6 +43,9 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "photo_url")
+    private String photoUrl;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -52,11 +54,12 @@ public class User {
     @JoinColumn(name = "user_id")
     private Set<UserDetails> userDetails;
 
-    public User(String email, String password, String name, String lastName, Set<Role> roles, Set<UserDetails> userDetails) {
+    public User(String email, String password, String name, String lastName, String photoUrl, Set<Role> roles, Set<UserDetails> userDetails) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.lastName = lastName;
+        this.photoUrl = photoUrl;
         this.roles = roles;
         this.userDetails = userDetails;
     }
