@@ -27,20 +27,21 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li th:class="${navSection == 'home' ? 'active' : ''}"><a th:href="@{/}">Home</a></li>
-                <li th:class="${navSection == 'contactUs' ? 'active' : ''}"><a th:href="@{/contactUs}">Contact Us</a></li>
             </ul>
-
-            <!--<ul class="nav navbar-nav navbar-right">-->
-                <!--<li sec:authorize="hasRole('ROLE_ADMIN')" th:class="${navSection == 'user' ? 'active' : ''}"><a th:text="#{user.navbar.message}" th:href="@{/user}"></a></li>-->
-            <!--</ul>-->
+            <ul sec:authorize="hasRole('ROLE_ADMIN')" class="nav navbar-nav">
+                <li th:class="${navSection == 'admin' ? 'active' : ''}"><a th:href="@{/admin}">Admin</a></li>
+            </ul>
+            <ul sec:authorize="isAnonymous()" class="nav navbar-nav navbar-right">
+                <li th:class="${navSection == 'login' ? 'active' : ''}"><a th:href="@{/login}">Sign In</a></li>
+            </ul>
         </div>
     </div>
 </nav>
 <div class="container-fluid wrapper">
     <div class="container">
         <!--<div id="successMessage" th:if="${successMessage != null}" class="alert alert-success">-->
-            <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-            <!--<span th:text="${successMessage}" ></span>-->
+        <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+        <!--<span th:text="${successMessage}" ></span>-->
         <!--</div>-->
     </div>
     <div layout:fragment="content">

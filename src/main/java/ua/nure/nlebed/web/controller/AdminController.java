@@ -10,18 +10,18 @@ import ua.nure.nlebed.web.Section;
 
 @Controller
 @Navigation(Section.ADMIN)
-public class UserController {
+public class AdminController {
 
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/admin")
     public String admin(Model model) {
         model.addAttribute("users", userService.findAllClients());
-        return "user/index";
+        return "admin/index";
     }
 }
