@@ -17,14 +17,16 @@
                 <th>ip</th>
                 <th>device</th>
                 <th>blocked</th>
+                <th>actions</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="userDetails : ${user.userDetails}">
-                <td th:text="${userDetails.macAddress}">mac</td>
-                <td th:text="${userDetails.ipAddress}">mac</td>
-                <td th:text="${userDetails.device}">mac</td>
-                <td th:text="${userDetails.blocked}">mac</td>
+                <td th:text="${userDetails.macAddress}"></td>
+                <td th:text="${userDetails.ipAddress}"></td>
+                <td th:text="${userDetails.device}"></td>
+                <td th:text="${userDetails.blocked}"></td>
+                <td><a class="btn btn-danger" href="#" role="button">Block Device</a></td>
             </tr>
             </tbody>
         </table>
