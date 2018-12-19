@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/admin")
+                .defaultSuccessUrl("/userDetails")
                 .failureUrl("/login-error")
                 .and()
                 .logout()
@@ -29,10 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/contactUs", "/").hasAnyRole("CLIENT", "ADMIN")
+                .antMatchers("/userDetails").hasAnyRole("CLIENT", "ADMIN")
+                .antMatchers("/", "home", "index").permitAll()
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/error");
+                .accessDeniedPage("/error-page");
     }
 
     @Autowired
