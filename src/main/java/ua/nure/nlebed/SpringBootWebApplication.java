@@ -9,7 +9,6 @@ import ua.nure.nlebed.model.Role;
 import ua.nure.nlebed.model.SupportedRoles;
 import ua.nure.nlebed.model.User;
 import ua.nure.nlebed.repository.UserRepository;
-import ua.nure.nlebed.service.UserService;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +36,7 @@ public class SpringBootWebApplication implements CommandLineRunner {
         user.setName("admin");
         user.setPassword(passwordEncoder.encode("admin"));
         user.setRoles(roles);
+        user.setPhotoUrl("https://www.timeshighereducation.com/sites/default/files/byline_photos/default-avatar.png");
         userRepository.saveAndFlush(user);
     }
 }

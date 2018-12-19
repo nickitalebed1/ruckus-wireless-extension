@@ -8,10 +8,11 @@ import ua.nure.nlebed.converter.UserDTOConverter;
 import ua.nure.nlebed.dto.UserDTO;
 import ua.nure.nlebed.model.SupportedRoles;
 import ua.nure.nlebed.model.User;
+import ua.nure.nlebed.model.UserDetails;
 import ua.nure.nlebed.repository.UserRepository;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,12 +41,24 @@ public class UserService {
         if (userByEmail == null) {
             LOGGER.info("User with email {} signed into the application.", userDTO.getEmail());
             userRepository.saveAndFlush(user);
+        } else {
+            userByEmail.setPhotoUrl(user.getPhotoUrl());
+            Set<UserDetails> userDetails = userByEmail.getUserDetails();
+            if (userDetails.stream().noneMatch(ud -> userDTO.getMacAddress().equals(ud.getMacAddress()))) {
+                userDetails.add(new UserDetails(userDTO.getMacAddress(), userDTO.getIpAddress(),
+                        userDTO.getDevice(), false));
+            }
+            userByEmail.setUserDetails(userDetails);
+            userRepository.saveAndFlush(userByEmail);
         }
     }
 
-    @Transactional
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public User findUserById(Integer id) {
+        return userRepository.findOne(id);
     }
 
 }

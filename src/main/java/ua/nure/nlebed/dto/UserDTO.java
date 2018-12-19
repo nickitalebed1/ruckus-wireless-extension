@@ -16,4 +16,6 @@ public class UserDTO {
     private String ipAddress;
 
     private String device;
+
+    private String photoUrl;
 }
