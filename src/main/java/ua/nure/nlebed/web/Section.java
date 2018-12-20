@@ -1,5 +1,5 @@
 package ua.nure.nlebed.web;
 
 public enum Section {
-    HOME, ADMIN, LOGIN, USERDETAILS
+    HOME, ADMIN, LOGIN, USERDETAILS, DOWNLOADS
 }
