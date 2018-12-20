@@ -14,7 +14,6 @@
             <tr>
                 <th>photo</th>
                 <th>user</th>
-                <th>mac</th>
                 <th>details</th>
             </tr>
             </thead>
@@ -22,9 +21,6 @@
             <tr th:each="user : ${users}">
                 <td><img th:src="${user.photoUrl}" height="20" width="20"/></td>
                 <td th:text="${user.email}">email</td>
-                <div th:if="${user.userDetails.size() == 1}">
-                    <td th:text="${user.userDetails.iterator().next().macAddress}">mac</td>
-                </div>
                 <td><a th:href="@{/userDetails/} + ${user.id}">View Details</a></td>
             </tr>
             </tbody>
