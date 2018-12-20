@@ -135,3 +135,24 @@ p.error {
     font-weight: bold;
     color: red;
 }
+
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.download-btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.download-btn:hover {
+    background-color: RoyalBlue;
+}
