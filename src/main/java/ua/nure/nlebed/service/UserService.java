@@ -11,6 +11,7 @@ import ua.nure.nlebed.model.User;
 import ua.nure.nlebed.model.UserDetails;
 import ua.nure.nlebed.repository.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -48,6 +49,7 @@ public class UserService {
                 userDetails.add(new UserDetails(userDTO.getMacAddress(), userDTO.getIpAddress(),
                         userDTO.getDevice(), false));
             }
+            userByEmail.setLastConnectionTime(LocalDateTime.now());
             userByEmail.setUserDetails(userDetails);
             userRepository.saveAndFlush(userByEmail);
         }
