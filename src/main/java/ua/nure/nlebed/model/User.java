@@ -1,5 +1,6 @@
 package ua.nure.nlebed.model;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -46,6 +47,9 @@ public class User {
     @Column(name = "photo_url")
     private String photoUrl;
 
+    @Column
+    private LocalDateTime lastConnectionTime;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -54,12 +58,13 @@ public class User {
     @JoinColumn(name = "user_id")
     private Set<UserDetails> userDetails;
 
-    public User(String email, String password, String name, String lastName, String photoUrl, Set<Role> roles, Set<UserDetails> userDetails) {
+    public User(String email, String password, String name, String lastName, String photoUrl, Set<Role> roles, Set<UserDetails> userDetails, LocalDateTime lastConnectionTime) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.lastName = lastName;
         this.photoUrl = photoUrl;
+        this.lastConnectionTime = lastConnectionTime;
         this.roles = roles;
         this.userDetails = userDetails;
     }

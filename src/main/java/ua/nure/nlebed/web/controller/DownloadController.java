@@ -21,7 +21,7 @@ public class DownloadController {
     @RequestMapping(value="/downloads/android")
     public ResponseEntity<InputStreamResource> downloadFile() {
         InputStreamResource resource = new InputStreamResource(getClass().getClassLoader()
-                .getResourceAsStream("android/app.apk"));
+                .getResourceAsStream("downloads/android/app.apk"));
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + "androidNureWifi.apk")
                 .contentType(MediaType.MULTIPART_FORM_DATA)

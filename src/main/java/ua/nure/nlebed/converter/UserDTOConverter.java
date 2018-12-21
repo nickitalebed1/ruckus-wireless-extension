@@ -9,6 +9,7 @@ import ua.nure.nlebed.model.SupportedRoles;
 import ua.nure.nlebed.model.User;
 import ua.nure.nlebed.model.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,7 +42,8 @@ public class UserDTOConverter {
                 userDTO.getLastName(),
                 photoUrl,
                 roles,
-                userDetails);
+                userDetails,
+                LocalDateTime.now());
     }
 
 }
