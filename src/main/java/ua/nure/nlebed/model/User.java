@@ -47,8 +47,11 @@ public class User {
     @Column(name = "photo_url")
     private String photoUrl;
 
-    @Column
+    @Column(name = "last_connection_date")
     private LocalDateTime lastConnectionTime;
+
+    @Column(name = "is_connected")
+    private Boolean isConnected;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -58,7 +61,7 @@ public class User {
     @JoinColumn(name = "user_id")
     private Set<UserDetails> userDetails;
 
-    public User(String email, String password, String name, String lastName, String photoUrl, Set<Role> roles, Set<UserDetails> userDetails, LocalDateTime lastConnectionTime) {
+    public User(String email, String password, String name, String lastName, String photoUrl, Set<Role> roles, Set<UserDetails> userDetails, LocalDateTime lastConnectionTime, Boolean isConnected) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -67,5 +70,6 @@ public class User {
         this.lastConnectionTime = lastConnectionTime;
         this.roles = roles;
         this.userDetails = userDetails;
+        this.isConnected = isConnected;
     }
 }

@@ -43,7 +43,8 @@ public class UserDTOConverter {
                 photoUrl,
                 roles,
                 userDetails,
-                LocalDateTime.now());
+                LocalDateTime.now(),
+                true);
     }
 
 }

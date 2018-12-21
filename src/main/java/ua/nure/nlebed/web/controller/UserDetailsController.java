@@ -21,7 +21,7 @@ public class UserDetailsController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/userDetails")
+    @RequestMapping("/profile")
     public String userDetails(Model model, Principal principal) {
         User user = userService.findUserByEmail(principal.getName());
         model.addAttribute("user", user);
