@@ -21,7 +21,9 @@
             </thead>
             <tbody>
             <tr th:each="user : ${users}">
-                <td><span class="dot"></span></td>
+
+                <td><span th:class="${user.isConnected ? 'connected' : 'disconnected'}"></span></td>
+
                 <td th:text="${user.lastConnectionTime}"></td>
                 <td><img th:src="${user.photoUrl}" height="20" width="20"/></td>
                 <td th:text="${user.email}">email</td>
