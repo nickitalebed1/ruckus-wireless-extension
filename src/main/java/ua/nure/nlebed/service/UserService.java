@@ -51,6 +51,7 @@ public class UserService {
             }
             userByEmail.setLastConnectionTime(LocalDateTime.now());
             userByEmail.setUserDetails(userDetails);
+            userByEmail.setIsConnected(true);
             userRepository.saveAndFlush(userByEmail);
         }
     }
@@ -63,4 +64,7 @@ public class UserService {
         return userRepository.findOne(id);
     }
 
+    public void updateClientsStatuses(List<User> clientsToDisconnect) {
+        userRepository.save(clientsToDisconnect);
+    }
 }
