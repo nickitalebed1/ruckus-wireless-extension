@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import static ua.nure.nlebed.model.SupportedRoles.ROLE_CLIENT;
+
 @Component
 public class UserDTOConverter {
 
@@ -24,7 +26,7 @@ public class UserDTOConverter {
 
     public User convert(UserDTO userDTO) {
         Set<Role> roles = new HashSet<>();
-        roles.add(new Role(SupportedRoles.ROLE_CLIENT));
+        roles.add(new Role(ROLE_CLIENT));
 
         Set<UserDetails> userDetails = new HashSet<>();
         userDetails.add(new UserDetails(
