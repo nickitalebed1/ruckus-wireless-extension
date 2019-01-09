@@ -5,11 +5,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import ua.nure.nlebed.dto.UserDTO;
 import ua.nure.nlebed.model.Role;
-import ua.nure.nlebed.model.SupportedRoles;
 import ua.nure.nlebed.model.User;
 import ua.nure.nlebed.model.UserDetails;
+import ua.nure.nlebed.web.pojo.UserPojo;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -47,6 +48,20 @@ public class UserDTOConverter {
                 userDetails,
                 LocalDateTime.now(),
                 true);
+    }
+
+    public User convert(UserPojo userPojo) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(new Role(ROLE_CLIENT));
+        return new User(userPojo.getEmail(),
+                passwordEncoder.encode(userPojo.getPassword()),
+                userPojo.getName(),
+                userPojo.getLastName(),
+                "https://www.timeshighereducation.com/sites/default/files/byline_photos/default-avatar.png",
+                roles,
+                Collections.emptySet(),
+                LocalDateTime.now(),
+                false);
     }
 
 }
