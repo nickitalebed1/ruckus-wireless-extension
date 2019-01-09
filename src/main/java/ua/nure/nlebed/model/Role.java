@@ -22,7 +22,7 @@ public class Role {
     @Column(name = "role_id")
     private Integer id;
 
-    @Column(name = "role", unique = true)
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private SupportedRoles role;
 
