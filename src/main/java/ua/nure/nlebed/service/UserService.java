@@ -3,6 +3,7 @@ package ua.nure.nlebed.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.nure.nlebed.converter.UserDTOConverter;
 import ua.nure.nlebed.dto.UserDTO;
@@ -10,7 +11,9 @@ import ua.nure.nlebed.model.SupportedRoles;
 import ua.nure.nlebed.model.User;
 import ua.nure.nlebed.model.UserDetails;
 import ua.nure.nlebed.repository.UserRepository;
+import ua.nure.nlebed.web.pojo.UserPojo;
 
+import javax.validation.ValidationException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -54,6 +57,15 @@ public class UserService {
             userByEmail.setIsConnected(true);
             userRepository.saveAndFlush(userByEmail);
         }
+    }
+
+    public void saveUserPojo(UserPojo userPojo) {
+        User userByEmail = userRepository.findByEmail(userPojo.getEmail());
+        if (userByEmail != null) {
+            throw new ValidationException("Such email already exists");
+        }
+        User user = userDTOConverter.convert(userPojo);
+        userRepository.saveAndFlush(user);
     }
 
     public User findUserByEmail(String email) {
