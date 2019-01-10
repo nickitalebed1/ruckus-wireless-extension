@@ -10,7 +10,8 @@
             <h2 th:text="${user.email}"></h2>
         </div>
         <img th:src="@{${user.photoUrl}}" height="50" width="50" class="rounded float-left"/>
-        <table class="table table-striped float-left">
+
+        <table th:if="${!user.userDetails.isEmpty()}" class="table table-striped float-left">
             <thead>
             <tr>
                 <th>mac</th>
@@ -30,6 +31,7 @@
             </tr>
             </tbody>
         </table>
+        <p class="error">Client doesn't have any devices yet.</p>
     </div>
 </div>
 </body>

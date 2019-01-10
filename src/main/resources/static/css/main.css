@@ -136,6 +136,11 @@ p.error {
     color: red;
 }
 
+p.success {
+    font-weight: bold;
+    color: green;
+}
+
 .connected {
     height: 15px;
     width: 15px;
