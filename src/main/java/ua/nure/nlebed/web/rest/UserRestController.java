@@ -1,13 +1,11 @@
 package ua.nure.nlebed.web.rest;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import sun.misc.BASE64Encoder;
 import ua.nure.nlebed.dto.UserDTO;
 import ua.nure.nlebed.model.User;
 import ua.nure.nlebed.service.UserService;
@@ -26,12 +24,12 @@ public class UserRestController {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public void putUser(@RequestBody UserDTO user) {
+    public void getUsers(@RequestBody UserDTO user) {
         userService.saveUser(user);
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public List<User> putUser() {
+    public List<User> getUsers() {
         return userService.findAllClients();
     }
 

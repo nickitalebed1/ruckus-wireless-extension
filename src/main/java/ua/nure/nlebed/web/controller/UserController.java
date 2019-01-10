@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,19 +23,27 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/addUser")
+    @GetMapping("/addUserPage")
     public String toAddUserPage(Model model) {
         model.addAttribute("userPojo", new UserPojo());
         return "admin/addUser/index";
     }
 
     @PostMapping("/addUser")
-    public String addUser(@ModelAttribute @Valid UserPojo userPojo, BindingResult bindingResult) {
+    public String addUser(@ModelAttribute @Valid UserPojo userPojo,
+//                          Model model,
+                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "admin/addUser/index";
         }
-        userService.saveUserPojo(userPojo);
-        return "admin/addUser/index";
+        try {
+            userService.saveUserPojo(userPojo);
+        } catch (Exception e) {
+            bindingResult.addError(new FieldError("User", "email", e.getMessage()));
+            return "admin/addUser/index";
+        }
+//        model.addAttribute("successfullyAdded", true);
+        return "admin/successfullyAddedUser/index";
     }
 
 }
