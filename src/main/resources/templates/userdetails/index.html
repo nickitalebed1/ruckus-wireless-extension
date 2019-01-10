@@ -31,7 +31,7 @@
             </tr>
             </tbody>
         </table>
-        <p class="error">Client doesn't have any devices yet.</p>
+        <p th:if="${user.userDetails.isEmpty()}" class="error">Client doesn't have any devices yet.</p>
     </div>
 </div>
 </body>
