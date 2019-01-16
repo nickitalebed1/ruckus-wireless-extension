@@ -5,13 +5,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
-import ua.nure.nlebed.model.User;
+import ua.nure.nlebed.domain.BlockedClient;
+import ua.nure.nlebed.domain.RuckusWirelessClient;
+import ua.nure.nlebed.model.UserDetails;
 import ua.nure.nlebed.service.UserService;
+import ua.nure.nlebed.web.RuckusRestTemplate;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Component
 public class WifiAccessControlScheduler {
@@ -19,23 +22,62 @@ public class WifiAccessControlScheduler {
     private static final Logger LOGGER = LoggerFactory.getLogger(WifiAccessControlScheduler.class);
 
     private final UserService userService;
+    private final RuckusRestTemplate ruckusRestTemplate;
 
     @Autowired
-    public WifiAccessControlScheduler(UserService userService) {
+    public WifiAccessControlScheduler(UserService userService, RuckusRestTemplate ruckusRestTemplate) {
         this.userService = userService;
+        this.ruckusRestTemplate = ruckusRestTemplate;
     }
 
     @Scheduled(fixedRate = 10000)
     public void reportCurrentTime() {
-        LocalDateTime nowMinus15Minutes = LocalDateTime.now().minusSeconds(20L);
-        List<User> clientsToDisconnect = userService.findAllClients().stream()
-                .filter(u -> u.getLastConnectionTime().isBefore(nowMinus15Minutes))
-                .collect(Collectors.toList());
-        if (!CollectionUtils.isEmpty(clientsToDisconnect)) {
-            // TODO disconnect them in RUCKUS
-            clientsToDisconnect.forEach(u -> u.setIsConnected(false));
-            userService.updateClientsStatuses(clientsToDisconnect);
+        List<String> macAddressesOnServer = userService
+                .findAllClients()
+                .stream()
+                .flatMap(user -> user.getUserDetails().stream())
+                .map(UserDetails::getMacAddress)
+                .collect(toList());
+
+        List<RuckusWirelessClient> macsForBlock = new ArrayList<>();
+        List<String> idsForUnblock = new ArrayList<>();
+
+        List<RuckusWirelessClient> ruckusWirelessClients = ruckusRestTemplate.queryForCurrentClients();
+        List<BlockedClient> blockedClients = ruckusRestTemplate.queryForBlockedClients();
+
+
+        List<RuckusWirelessClient> collect = new ArrayList<>();
+        for (RuckusWirelessClient ruckusWirelessClient : ruckusWirelessClients) {
+            if (blockedClients.stream().noneMatch(u -> u.getMac().equals(ruckusWirelessClient.getClientMac()))) {
+                collect.add(ruckusWirelessClient);
+            }
         }
+
+        for (RuckusWirelessClient ruckusWirelessClient : collect) {
+            if (!macAddressesOnServer.contains(ruckusWirelessClient.getClientMac())) {
+                macsForBlock.add(ruckusWirelessClient);
+            }
+        }
+
+        for (BlockedClient ruckusWirelessClient : blockedClients) {
+            String mac = ruckusWirelessClient.getMac();
+            if (macAddressesOnServer.contains(mac)) {
+                idsForUnblock.add(ruckusWirelessClient.getId());
+            }
+        }
+
+        sendBlockRequests(macsForBlock);
+        sendUnblockRequests(idsForUnblock);
+
+
+    }
+
+    private void sendBlockRequests(List<RuckusWirelessClient> macsForBlock) {
+        ruckusRestTemplate.sendBlockUsersRequest(macsForBlock);
+    }
+
+    private void sendUnblockRequests(List<String> ids) {
+        ruckusRestTemplate.sendUnblock(ids);
     }
 
 }
